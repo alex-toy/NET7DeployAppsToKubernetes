@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: formula-app-deployment
+  annotations:
+    kubernetes.io/change-cause: "initial deployment of the app"
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: formula-app
+  template:
+    metadata:
+      name: formulapp-container
+      labels:
+        env: prod
+        app: formula-app
+        app.kubernetes.io/name: formula-app
+    spec:
+      containers:
+        - name: formula-app
+          image: dockeralexei/formulaoneapi:v1
+          ports:
+            - containerPort: 80
+              name: http-web-api
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 200m
+              memory: 200Mi
+          env:
+            - name: ASPNETCORE_URLS
+              value: http://+:80
+
+
+--- 
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-loadbalancer-service
+
+spec:
+  selector: 
+    app.kubernetes.io/name: formula-app
+  ports: 
+    - name: formula-app-port
+      protocol: TCP
+      protocol: TCP
+      port: 8080
+      targetPort: 80
+  type: loadBalancer 
