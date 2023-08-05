@@ -2,26 +2,21 @@
 
 In this project, we will study how to deploy .NET Apps to Kubernetes.
 
+
 ## Settings
 
 - in the docker desktop settings, make sure you have kubernetes enabled
 <img src="/pictures/settings.png" title="docker desktop settings"  width="900">
 
 
-
-
-
-- add packages
+- docker commands
 ```
-Microsoft.AspNetCore.Authentication.JwtBearer
-Microsoft.IdentityModel.Tokens
-Swashbuckle.AspNetCore
-Swashbuckle.AspNetCore.Filters
-System.IdentityModel.Tokens.Jwt
+docker build FormulaOneAPI -t dockeralexei/formulaoneapi:v1
+docker tag formulaoneapi dockeralexei/formulaoneapi:v1
+docker push dockeralexei/formulaoneapi:v1
 ```
 
-### Read Claims in the controller
+- push image to docker hub
+<img src="/pictures/dockerhub.png" title="push image to docker hub"  width="900">
 
-- register a new user
-<img src="/pictures/register.png" title="register a new user"  width="900">
 
